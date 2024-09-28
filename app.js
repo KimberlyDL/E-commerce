@@ -1,7 +1,7 @@
 const PORT = 3000;
 const express = require("express");
 const bodyParser = require("body-parser");
-const routes = require("./routes/adminRouter");
+const adminRouter = require("./routes/adminRouter");
 
 const app = express();
 
@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
     extended:true
 }));
 app.use(express.static('public'));
-app.use('/', routes);
+app.use('/products', adminRouter);
 
 app.listen(PORT || 8080, () => {
     console.log(`Server connected successfully to port ${PORT}...`);

@@ -1,0 +1,35 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<section id="catalog" class="catalog section"></section>
+<div class="container mt-5">
+  <div class="row">
+    <% products.forEach(function(product) { %>
+    <div class="col-md-4">
+      <%- include('partials/product_card', { product: product }) %>
+    </div>
+    <% }); %>
+  </div>
+</div>
+</section>
+
+<script>
+  function addToCart(productId) {
+    const quantity = document.getElementById(`quantity-${productId}`).value;
+    const productIdValue = document.getElementById(`productId-${productId}`).value;
+
+    axios.post('/cart/add', {
+        productId: productIdValue,
+        quantity: quantity
+      })
+      .then(function(response) {
+        alert('Product added to cart successfully!');
+      })
+      .catch(function(error) {
+        console.error('There was an error adding the product to the cart!', error);
+      });
+  }
+</script>
+
+
+<%- include('partials/end') %>

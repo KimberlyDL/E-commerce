@@ -1,7 +1,7 @@
 const { Product, Cart, ProductCategory, ProductCategoryProduct, User, Review } = require('../../models');
 
 const productController = {
-  createProduct: async (req, res) => {
+  create: async (req, res) => {
     try {
       const categories = await ProductCategory.findAll();
       res.render('createProducts', {
@@ -17,9 +17,13 @@ const productController = {
 
   post: async (req, res) => {
     try {
-      const { name, images, price, description, categories, customCategories } = req.body;
+      const { name, price, description, categories, customCategories } = req.body;
 
-      let imagePath = null;
+      // if (!file) {
+      //     return res.status(400).json({ message: 'No file uploaded.' });
+      // }
+      imagePath = '';
+
       if (req.file) {
         const filename = req.file.filename;
         imagePath = `/uploads/product/${filename}`;
@@ -29,7 +33,7 @@ const productController = {
         name,
         price,
         description,
-        image_path: imagePath,
+        images: imagePath,
       });
 
       const productID = product.id;
@@ -68,13 +72,22 @@ const productController = {
     }
   },
 
-  show: async (req, res) => {
+  index: async (req, res) => {
     try {
       const products = await Product.findAll({
-        include: [{ model: ProductCategory, as: 'categories' }],
+        include: {
+          model: ProductCategory,
+          as: 'categories', // Alias used in association
+          through: { attributes: [] }, // Hides the join table attributes
+        }
       });
 
-      res.json(products);
+      //res.status(201).json(products);
+      res.render('products', {
+        title: 'Supreme Agribet Feeds Supply Store',
+        currentUrl: req.url,
+        products
+      });
 
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -82,7 +95,11 @@ const productController = {
     }
   },
 
-  getProductById: async (req, res) => {
+  edit: async (req, res) => {
+    res.render('createProducts', {})
+  },
+
+  show: async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findByPk(id, {
@@ -100,7 +117,7 @@ const productController = {
     }
   },
 
-  updateProduct: async (req, res) => {
+  patch: async (req, res) => {
     try {
       const { id } = req.params;
       const { name, images, price, description, categoryIds } = req.body;
@@ -130,7 +147,7 @@ const productController = {
     }
   },
 
-  deleteProduct: async (req, res) => {
+  delete: async (req, res) => {
     try {
       const { id } = req.params;
       const product = await Product.findByPk(id);
@@ -140,6 +157,7 @@ const productController = {
       }
 
       await product.destroy();
+
       res.json({ message: 'Product deleted successfully' });
     } catch (error) {
       console.error('Error deleting product:', error);
