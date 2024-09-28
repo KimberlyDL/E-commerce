@@ -1,0 +1,24 @@
+<div class="card mb-4 shadow-sm"
+    data-id="<%= product.id %>" 
+    data-name="<%= product.name %>" 
+    data-image="<%= product.image %>"
+    data-description="<%= product.description %>" 
+    data-category="<%= product.category %>" 
+    data-price="<%= product.price %>">
+
+  <img src="<%- product.images %>" class="card-img-top" alt="<%= product.name %>">
+  <div class="card-body">
+    <h5 class="card-title"><%= product.name %></h5>
+    <p class="card-text"><%= product.description %></p>
+    <p class="card-text"><strong>Category: </strong><%= product.category %></p>
+    <p class="card-text"><strong>Price: </strong>₱<%= product.price %></p>
+
+    <input type="hidden" id="productId-<%= product._id %>" value="<%= product._id %>">
+    <div class="form-group">
+      <label for="quantity-<%= product._id %>">Quantity</label>
+      <input type="number" id="quantity-<%= product._id %>" min="1" value="1" class="form-control" required>
+    </div>
+
+    <button class="btn btn-primary mt-2" onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+  </div>
+</div>

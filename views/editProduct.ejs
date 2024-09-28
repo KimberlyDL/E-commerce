@@ -1,0 +1,89 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<section id="team" class="team section">
+  <div class="container mt-5"></div>
+  <div class="container section-title">
+    <h2>Upload</h2>
+    <p>Edit Products</p>
+  </div>
+
+  <div class="container">
+    <div class="col-lg-12"></div>
+    <form action="/products/edit/<%- id %>" method="POST" enctype="multipart/form-data">
+
+      <!-- Product Name Field -->
+      <div class="row row justify-content-center gy-4 mt-3">
+        <div class="col-md-6 text-start">
+          <label for="productName" class="form-label">Product Name:</label>
+          <input type="text" name="productName" value="<%- name %>" id="productName" class="form-control" placeholder="Enter product name" required><br><br>
+        </div>
+      </div>
+
+      <!-- Product Price Field -->
+      <div class="row row justify-content-center gy-4">
+        <div class="col-md-6 text-start">
+          <label for="price" class="form-label">Price (₱):</label>
+          <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" min="1" required><br><br>
+        </div>
+      </div>
+
+      <!-- Product Description Field -->
+      <div class="row row justify-content-center gy-4">
+        <div class="col-md-6 text-start">
+          <label for="description" class="form-label">Description:</label>
+          <textarea name="description" id="description" class="form-control" placeholder="Enter product description" rows="4" required></textarea><br><br>
+        </div>
+      </div>
+
+      <!-- Upload Picture Field -->
+      <div class="row row justify-content-center gy-4">
+        <div class="col-md-6 text-start">
+          <label for="picture" class="form-label">Upload Picture:</label>
+          <div class="input-group input-group-lg mb-3">
+            <input type="file" name="picture" id="picture" accept="image/*" class="form-control" required><br><br>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <!-- Available Categories Checkboxes -->
+      <div class="row row justify-content-center gy-4">
+        <div class="col-md-6 text-start">
+          <label for="categories" class="form-label">Select Categories:</label><br>
+          <% if (categories && categories.length> 0) { %>
+          <% categories.forEach(function(category) { %>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="categories" value="<%= category._id %>" id="category_<%= category._id %>">
+            <label class="form-check-label" for="category_<%= category._id %>">
+              <%= category.name %>
+            </label>
+          </div>
+          <% }); %>
+          <% } else { %>
+          <p>No categories available.</p>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Custom Category Textbox -->
+      <div class="row row justify-content-center gy-4 mb-3">
+        <div class="col-md-6 text-start">
+          <label for="customCategory" class="form-label">Add Custom Category:</label>
+          <input type="text" name="customCategory" id="customCategory" class="form-control" placeholder="Enter custom category">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="row row justify-content-center gy-4 mt-3">
+        <div class="col-md-6 text-center">
+          <button type="submit">Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+
+</section>
+
+<%- include('partials/end') %>

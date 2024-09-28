@@ -1,38 +1,51 @@
-const multer = require("multer");
-const fs = require("fs");
+const express = require('express');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
-// File name
-const fileName = function (req, file, cb) {
-  const extArray = file.mimetype.split("/");
-  const extension = extArray[extArray.length - 1];
-  const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-  cb(null, file.fieldname + "-" + uniqueSuffix + "." + extension);
-};
+const userUploadDir = path.join(__dirname, '..', 'public', 'uploads', 'user');
 
-// Storage
+const uploadDir = './public/uploads/product';
+
+function getUniqueFilename(destination, originalName) {
+    const extension = path.extname(originalName);
+    const baseName = path.basename(originalName, extension).replace(/\s+/g, '-');
+    let newFilename = `${baseName}${extension}`;
+    let counter = 1;
+
+    while (fs.existsSync(path.join(destination, newFilename))) {
+        newFilename = `${baseName}-${counter}${extension}`;
+        counter++;
+    }
+
+    return newFilename;
+}
+
 const storageProductImage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const path = process.env.PUBLIC_DIR + `/uploads/product/`;
-    fs.mkdirSync(path, { recursive: true });
-    return cb(null, path);
-  },
-  filename: fileName,
+    destination: function (req, file, cb) {
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueFilename = getUniqueFilename(uploadDir, file.originalname); // Generate a unique filename
+        cb(null, uniqueFilename);
+    }
 });
+
 
 const storageUserAvatar = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const path = process.env.PUBLIC_DIR + `/uploads/user`;
-    fs.mkdirSync(path, { recursive: true });
-    return cb(null, path);
-  },
-  filename: fileName,
+    destination: function (req, file, cb) {
+        cb(null, userUploadDir);
+    },
+    filename: function (req, file, cb) {
+        const uniqueFilename = getUniqueFilename(userUploadDir, file.originalname); // Generate a unique filename
+        cb(null, uniqueFilename);
+    },
 });
 
-// Uploads
 const uploadProductImage = multer({ storage: storageProductImage });
 const uploadUserAvatar = multer({ storage: storageUserAvatar });
 
 module.exports = {
-  uploadProductImage,
-  uploadUserAvatar,
+    uploadProductImage,
+    uploadUserAvatar,
 };
