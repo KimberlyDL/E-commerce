@@ -7,8 +7,7 @@ const catalogController = {
         try {
             res.render('home', {
                 title: 'Supreme Agribet Feeds Supply Store',
-                currentUrl: req.url,
-                products
+                currentUrl: req.url
             });
 
         } catch (error) {
