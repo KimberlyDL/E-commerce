@@ -6,7 +6,8 @@ var { uploadProductImage } = require("../config/multer");
 
 var catalogController = require("../controller/catalog");
 
-router.get("/", catalogController.index)
+router.get("/", catalogController.home)
+router.get("/shop", catalogController.index)
 router.get("/addtocart", catalogController.addtocart);
 // router.post("/post", uploadProductImage.single("image"), catalogController.post);
 // router.post("/:id", catalogController.show);

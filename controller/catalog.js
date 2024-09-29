@@ -3,6 +3,20 @@ const path = require('path');
 const { Product, Cart, ProductCategory, ProductCategoryProduct, User, Review } = require('../models');
 
 const catalogController = {
+    home: async (req, res) => {
+        try {
+            res.render('home', {
+                title: 'Supreme Agribet Feeds Supply Store',
+                currentUrl: req.url,
+                products
+            });
+
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    },
+
     index: async (req, res) => {
         try {
             const products = await Product.findAll({
