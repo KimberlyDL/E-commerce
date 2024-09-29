@@ -10,7 +10,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      name: {
+      lastname: {
+        type: Sequelize.STRING,
+      },
+      firstname: {
         type: Sequelize.STRING,
       },
       avatar: {
@@ -35,6 +38,9 @@ module.exports = {
       },
       address: {
         type: Sequelize.STRING,
+      },
+      role: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

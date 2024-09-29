@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { Product, Cart, ProductCategory, ProductCategoryProduct, User, Review } = require('../models');
+const { Product, ProductCategory, ProductCategoryProduct, User,  Cart, Review } = require('../models');
 
 const catalogController = {
     home: async (req, res) => {
@@ -39,7 +39,6 @@ const catalogController = {
         }
     },
 
-
     addtocart: async (req, res) => {
         try {
             const categories = await ProductCategory.findAll();
@@ -54,6 +53,7 @@ const catalogController = {
         }
     },
 
+    //addtocart
     post: async (req, res) => {
         try {
             const { name, price, description, categories, customCategories } = req.body;

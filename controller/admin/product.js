@@ -21,9 +21,6 @@ const productController = {
     try {
       const { name, price, description, categories, customCategories } = req.body;
 
-      // if (!file) {
-      //     return res.status(400).json({ message: 'No file uploaded.' });
-      // }
       imagePath = '';
 
       if (req.file) {
@@ -67,7 +64,7 @@ const productController = {
       }
 
       //res.status(201).json({ success: true, product });
-      res.redirect('/products/');
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error creating product:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -242,7 +239,7 @@ const productController = {
         });
       }
       await product.destroy();
-      res.redirect('/products/');
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error deleting product:', error);
       res.status(500).json({ error: 'Internal server error' });
