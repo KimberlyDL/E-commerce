@@ -1470,7 +1470,8 @@ section,
   text-align: center;
 }
 
-.team .team-member .social a {
+.team .team-member .social a,
+.team .team-member .social button {
   background: color-mix(in srgb, var(--contrast-color), transparent 25%);
   color: color-mix(in srgb, var(--default-color), transparent 20%);
   margin: 0 3px;
@@ -1483,7 +1484,8 @@ section,
   align-items: center;
 }
 
-.team .team-member .social a:hover {
+.team .team-member .social a:hover,
+.team .team-member .social button:hover {
   color: var(--contrast-color);
   background: var(--accent-color);
 }

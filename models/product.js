@@ -8,7 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'product_id',          // Foreign key in ProductCategoryProduct table for Product
         otherKey: 'category_id',           // Foreign key in ProductCategoryProduct table for ProductCategory
         as: 'categories'                   // Alias for the associated categories
-      });    }
+      });
+      Product.hasMany(models.Cart, {
+        foreignKey: 'productId',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+    }
   }
   Product.init({
     name: {

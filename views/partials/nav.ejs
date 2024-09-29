@@ -10,29 +10,15 @@
     <nav id="navmenu" class="navmenu">
       <ul>
         <li><a href="/" class="<%= currentUrl === '/' ? 'active' : '' %>">Home</a></li>
-        <li><a href="/trending" class="<%= currentUrl === '/trending' ? 'active' : '' %>">Trending</a></li>
-        <li><a href="/artist" class="<%= currentUrl === '/artist' ? 'active' : '' %>">Artists</a></li>
+        <li><a href="/shop" class="<%= currentUrl === '/shop' ? 'active' : '' %>">Shop</a></li>
+        <li><a href="/cart" class="<%= currentUrl === '/cart' ? 'active' : '' %>"><i class="bi bi-bag-plus-fill"></i></a></li>
+        <li><a href="/signin" class="<%= currentUrl === '/cart' ? 'active' : '' %>">Sign in</a></li>
         
-        <!-- Profile Dropdown -->
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle"><span class="text-white">Profile</span><i class="bi bi-chevron-down text-white toggle-dropdown"></i></a>
-          <ul class="px-3 dropdown-menu">
-            <li><a href="/music/local/favorites" class="<%= currentUrl === '/music/local/favorites' ? 'active' : '' %>">Favorites</a></li>
-            <li><a href="/music/local" class="<%= currentUrl === '/music/local' ? 'active' : '' %>">My Songs</a></li>
-            <li><a href="/music/local/upload" class="<%= currentUrl === '/music/local/upload' ? 'active' : '' %>">Upload Music</a></li>
 
-            <!-- Playlist Link (Corrected conditional and link) -->
-            <li><a href="/playlist" class="<%= currentUrl === '/playlist' ? 'active' : '' %>">Playlist</a></li>
-
-            <!-- Playlist Dropdown (Corrected structure) -->
-            <li class="dropdown">
-              <a href="javascript:void(0)" class="dropdown-toggle"><span>Playlist</span> <i class="bi bi-chevron-right toggle-dropdown"></i></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">View Playlist</a></li>
-                <li><a href="#">Deep Dropdown 2</a></li>
-                <li><a href="#">Deep Dropdown 3</a></li>
-              </ul>
-            </li>
+        <li class="dropdown"><a href="#"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+          <ul class="">
+            <li><a href="/admin/products/" class="<%= currentUrl === '/admin/products/' ? 'active' : '' %>">Products</a></li>
+            <li><a href="/admin/products/create" class="<%= currentUrl === '/admin/products/create' ? 'active' : '' %>">Create Products</a></li>
           </ul>
         </li>
       </ul>

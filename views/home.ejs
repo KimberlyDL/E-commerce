@@ -1,0 +1,235 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<main class="main">
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero section dark-background">
+
+    <div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Music Player</span></h2>
+          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
+            ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
+            Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
+          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
+            ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
+            Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
+          <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea
+            ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem.
+            Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+          <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#hero-carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#hero-carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3"></use>
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0"></use>
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9"></use>
+      </g>
+    </svg>
+
+  </section><!-- /Hero Section -->
+
+  <!-- Song Section -->
+  <section id="portfolio" class="portfolio section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Tracks</h2>
+      <p>What's new</p>
+    </div><!-- End Section Title -->
+
+    <div class="container">
+
+      <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+        <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+          <li data-filter="*" class="filter-active">All</li>
+          <li data-filter=".filter-pop">Pop</li>
+          <li data-filter=".filter-rnb">Rnb</li>
+          <li data-filter=".filter-opm">Opm</li>
+        </ul><!-- End Portfolio Filters -->
+
+        <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-pop">
+            <img src="/img/songs/single.jpg" class="img-fluid" alt="Single Soon" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Single Soon</h4>
+              <p>Selena Gomez</p>
+              <a href="/img/songs/single.jpg" title="Single Soon" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-pop">
+            <img src="/img/songs/usedtobeyoung.jpg" class="img-fluid" alt="Used to be young" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Used to be young</h4>
+              <p>Miley Cyrus</p>
+              <a href="/img/songs/usedtobeyoung.jpg" title="Used to be young" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-pop">
+            <img src="/img/songs/red.jpg" class="img-fluid" alt="Paint the Town Red" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Paint the Town Red</h4>
+              <p>Doja Cat</p>
+              <a href="/img/songs/red.jpg" title="Paint the Town Red" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-rnb">
+            <img src="/img/songs/respect.jpg" class="img-fluid" alt="Respect" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Respect</h4>
+              <p>Aretha Franklin</p>
+              <a href="/img/songs/respect.jpg" title="Respect" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-rnb">
+            <img src="/img/songs/WhatsGoingOn.png" class="img-fluid" alt="What’s Going On" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>What’s Going On</h4>
+              <p>Marvin Gaye</p>
+              <a href="/img/songs/WhatsGoingOn.png" title="What’s Going On" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-rnb">
+            <img src="/img/songs/LetsStayTogether.jpg" class="img-fluid" alt="Let`s Stay Together" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Let`s Stay Together</h4>
+              <p>Al Green</p>
+              <a href="/img/songs/LetsStayTogether.jpg" title="Let`s Stay Together" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-rnb">
+            <img src="/img/songs/mygirl.jpg" class="img-fluid" alt="My Girl" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>My Girl</h4>
+              <p>The Temptations</p>
+              <a href="/img/songs/mygirl.jpg" title="My Girl" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-opm">
+            <img src="/img/songs/sinta.png" class="img-fluid" alt="Sinta" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Sinta</h4>
+              <p>Rob Daniel</p>
+              <a href="/img/songs/sinta.png" title="Sinta" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-opm">
+            <img src="/img/songs/dilaw.jpg" class="img-fluid" alt="Uhaw" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Uhaw</h4>
+              <p>Dilaw</p>
+              <a href="/img/songs/dilaw.jpg" title="Uhaw" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-opm">
+            <img src="/img/songs/saan.png" class="img-fluid" alt="Saan" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Saan</h4>
+              <p>Maki</p>
+              <a href="/img/songs/saan.png" title="Saan" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-opm">
+            <img src="/img/songs/estranghero.jpg" class="img-fluid" alt="Estranghero" style="width: 500px;">
+            <div class="portfolio-info">
+              <h4>Estranghero</h4>
+              <p>Cup of Joe</p>
+              <a href="/img/songs/estranghero.jpg" title="Estranghero" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+              <a href="#" title="Add to playlist" class="details-link"><i class="bi bi-music-note-list"></i></a>
+            </div>
+          </div>
+
+
+        </div><!-- End Portfolio Container -->
+
+      </div>
+
+    </div>
+
+  </section><!-- /Song Section -->
+
+</main>
+
+
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+<!-- Vendor JS Files -->
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Main JS File -->
+<script src="/js/main.js"></script>
+<%- include('partials/end') %>

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { Product, Cart, ProductCategory, ProductCategoryProduct, User, Review } = require('../../models');
 
 const productController = {
@@ -19,9 +21,6 @@ const productController = {
     try {
       const { name, price, description, categories, customCategories } = req.body;
 
-      // if (!file) {
-      //     return res.status(400).json({ message: 'No file uploaded.' });
-      // }
       imagePath = '';
 
       if (req.file) {
@@ -64,8 +63,8 @@ const productController = {
         });
       }
 
-      res.status(201).json({ success: true, product });
-
+      //res.status(201).json({ success: true, product });
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error creating product:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -96,7 +95,30 @@ const productController = {
   },
 
   edit: async (req, res) => {
-    res.render('createProducts', {})
+    try {
+      const { id } = req.params;
+      
+      const product = await Product.findByPk(id, {
+        include: [{ model: ProductCategory, as: 'categories' }]
+      });
+  
+      const allCategories = await ProductCategory.findAll();
+  
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+  
+      res.render('editProduct', {
+        title: 'Supreme Agribet Feeds Supply Store',
+        currentUrl: req.url,
+        product,
+        categories: allCategories
+      });
+  
+    } catch (error) {
+      console.error('Error fetching product:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
   },
 
   show: async (req, res) => {
@@ -110,42 +132,91 @@ const productController = {
         return res.status(404).json({ error: 'Product not found' });
       }
 
-      res.json(product);
+      res.render('viewProducts',
+        {
+          title: 'Supreme Agribet Feeds Supply Store',
+          currentUrl: req.url,
+          product
+        });
+
+      //res.json(product);
+
     } catch (error) {
       console.error('Error fetching product:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   },
-
+  
   patch: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, images, price, description, categoryIds } = req.body;
+      const { name, price, description, categories, customCategories, oldImage } = req.body;
+      let image = oldImage;
 
-      const product = await Product.findByPk(id);
+      const product = await Product.findByPk(id, {
+        include: [{ model: ProductCategory, as: 'categories' }]
+      });
+  
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
-
-      await product.update({ name, images, price, description });
-
-      if (categoryIds && Array.isArray(categoryIds)) {
-        const categories = await ProductCategory.findAll({
-          where: { id: categoryIds },
-        });
-        await product.setCategories(categories);
+  
+      if (req.file) {
+        const filename = req.file.filename;
+        image = `/uploads/product/${filename}`;
+  
+        if (oldImage) {
+          const sanitizedOldImage = oldImage.startsWith('/') ? oldImage.substring(1) : oldImage;
+          const oldImageFullPath = path.join(__dirname, '..', '..', 'public', sanitizedOldImage);
+          if (fs.existsSync(oldImageFullPath)) {
+            fs.unlinkSync(oldImageFullPath);
+          }
+        }
       }
-
-      const updatedProduct = await Product.findByPk(id, {
-        include: [{ model: ProductCategory, as: 'categories' }],
+  
+      await product.update({
+        name,
+        price,
+        description,
+        images: image,
       });
-
-      res.json(updatedProduct);
+  
+      let allCategoryIds = [];
+  
+      if (categories && Array.isArray(categories)) {
+        allCategoryIds.push(...categories);
+      }
+  
+      if (customCategories) {
+        const customCategoryArray = customCategories.split(',').map(c => c.trim());
+  
+        for (const customCategoryName of customCategoryArray) {
+          let category = await ProductCategory.findOne({ where: { name: customCategoryName } });
+  
+          if (!category) {
+            category = await ProductCategory.create({ name: customCategoryName });
+          }
+  
+          allCategoryIds.push(category.id);
+        }
+      }
+  
+      await ProductCategoryProduct.destroy({ where: { product_id: product.id } }); // Clear old associations
+      for (const categoryId of allCategoryIds) {
+        await ProductCategoryProduct.create({
+          product_id: product.id,
+          category_id: categoryId
+        });
+      }
+  
+      res.status(200).json({ success: true, product });
+  
     } catch (error) {
       console.error('Error updating product:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   },
+  
 
   delete: async (req, res) => {
     try {
@@ -155,10 +226,20 @@ const productController = {
       if (!product) {
         return res.status(404).json({ error: 'Product not found' });
       }
+      const sanitizedOldImage = product.images.startsWith('/') ? product.images.substring(1) : product.images;
+      const imagePath = path.join(__dirname, '..', '..', 'public', sanitizedOldImage);
 
+      if (product.images && product.images !== path.join(__dirname, '..', '..', 'public', 'img/default-song.jpg') ) {
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error('Error deleting image:', err);
+          } else {
+            console.log('Image deleted successfully:', imagePath);
+          }
+        });
+      }
       await product.destroy();
-
-      res.json({ message: 'Product deleted successfully' });
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error deleting product:', error);
       res.status(500).json({ error: 'Internal server error' });

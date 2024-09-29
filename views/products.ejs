@@ -1,17 +1,31 @@
 <%- include('partials/start') %>
 <%- include('partials/nav') %>
 
-<section id="catalog" class="catalog section"></section>
-<div class="container mt-5">
-  <div class="row">
-    <% products.forEach(function(product) { %>
-    <div class="col-md-4">
-      <%- include('partials/product_card', { product: product }) %>
+<main>
+  <!-- Artist Section -->
+  <section id="team" class="team section">
+
+    <div class="container mt-5">
+      <div class="container section-title">
+        <h2>Upload</h2>
+        <p>Add Products to your shop</p>
+
+        <div class="text-right mb-4"></div>
+        <a href="/admin/products/create" class="btn btn-success">Add New Product</a>
+      </div>
     </div>
-    <% }); %>
-  </div>
-</div>
-</section>
+
+    <div class="container">
+      <div class="row gy-4">
+        <% products.forEach(function(product) { %>
+        <%- include('partials/adminproductpreview', { product: product }) %>
+        <% }); %>
+      </div>
+    </div>
+  </section><!-- /Artist Section -->
+
+</main>
+
 
 <script>
   function addToCart(productId) {
