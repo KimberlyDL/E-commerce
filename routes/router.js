@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const { check, validationResult, body } = require('express-validator');
 const router = express.Router();
 
 var { uploadProductImage } = require("../config/multer");
@@ -20,6 +21,7 @@ const signUpMiddleware = [
     validateSignUp,
     checkUserExists
 ];
+
 
 
 //routers
@@ -50,4 +52,4 @@ router.get("/shop", catalogController.index)
 router.get("/addtocart", catalogController.addtocart);
 
 
-module.exports =  router;
+module.exports = router;

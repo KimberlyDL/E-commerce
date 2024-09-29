@@ -28,19 +28,23 @@ const authSessionController = {
         const { email, password } = req.body;
 
         try {
-            const userModel = await checkUserExists(email);
+            const user = await User.findOne({ where: { email: email } });
 
-            if (userModel) {
-                const isMatch = await bcrypt.compare(password, userModel.password);
+            console.log(user);
+
+            if (user) {
+                const isMatch = await bcrypt.compare(password, user.password);
                 if (isMatch) {
-                    req.session.Id = userModel.id;
-                    req.session.firstName = userModel.firstName;
-                    req.session.lastName = userModel.lastName;
-                    return res.redirect('/dashboard');
+                    req.session.Id = user.id;
+                    req.session.firstName = user.firstName;
+                    req.session.lastName = user.lastName;
+                    return res.redirect('/');
                 }
             }
 
             return res.render('user/signin', {
+                title: 'Supreme Agribet Feeds Supply Store',
+                currentUrl: req.url,
                 errors: 'Invalid log in',
                 formData: { email }
             });
@@ -48,11 +52,12 @@ const authSessionController = {
         } catch (error) {
             console.error("Error during login:", error);
             return res.render('user/signin', {
+                title: 'Supreme Agribet Feeds Supply Store',
+                currentUrl: req.url,
                 errors: 'An error occurred, please try again later.',
                 formData: { email }
             });
         }
     }
-
 }
 module.exports = authSessionController;

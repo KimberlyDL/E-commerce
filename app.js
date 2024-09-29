@@ -1,6 +1,9 @@
 const PORT = 3000;
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require('express-session');
+const flash = require('connect-flash');
+
 
 // const mainRouter = require("./routes/mainRouter");
 // const authRouter = require("./routes/authRouter");
@@ -16,6 +19,23 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended:true
 }));
+
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {secure: false}
+}));
+
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.errors = req.flash('errors');
+    res.locals.formData = req.flash('formData');
+    next();
+});
+
 app.use(express.static('public'));
 
 
