@@ -6,13 +6,13 @@ var { uploadProductImage } = require("../config/multer");
 
 var catalogController = require("../controller/catalog");
 
-router.get("/", productController.index)
-router.get("/create", productController.create);
-router.post("/post", uploadProductImage.single("image"), productController.post);
-router.post("/:id", productController.show);
-router.get("/edit/:id", productController.edit);
-router.post("/edit/:id", productController.patch);
-router.delete("/edit/:id", productController.delete);
+router.get("/", catalogController.index)
+router.get("/addtocart", catalogController.addtocart);
+// router.post("/post", uploadProductImage.single("image"), catalogController.post);
+// router.post("/:id", catalogController.show);
+// router.get("/edit/:id", catalogController.edit);
+// router.post("/edit/:id", catalogController.patch);
+// router.delete("/edit/:id", catalogController.delete);
 
 
 

@@ -10,10 +10,10 @@ var productController = require("../controller/admin/product");
 router.get("/", productController.index)
 router.get("/create", productController.create);
 router.post("/post", uploadProductImage.single("image"), productController.post);
-router.post("/:id", productController.show);
+router.get("/:id", productController.show);
 router.get("/edit/:id", productController.edit);
-router.post("/edit/:id", productController.patch);
-router.delete("/edit/:id", productController.delete);
+router.post("/edit/:id", uploadProductImage.single("image"), productController.patch);
+router.post("/delete/:id", productController.delete);
 
 
 

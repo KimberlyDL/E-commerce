@@ -1,16 +1,20 @@
-<div class="col-lg-3 col-md-6 d-flex align-items-stretch"></div>
-    <div class="team-member">
-        <div class="member-img">
-            <img src="<%= profile_picture || '/img/default-song.jpg' %>" class="img-fluid" alt="">
-            <div class="social">
-                <a href="<%= twitter_handle || '' %>"><i class="bi bi-twitter-x"></i></a>
-                <a href="<%= instagram_handle || '' %>"><i class="bi bi-instagram"></i></a>
-                <a href="<%= tiktok_handle || '' %>"><i class="bi bi-tiktok"></i></a>
-            </div>
-        </div>
-        <div class="member-info">
-            <h4><%= name %></h4>
-            <span><%= album_count %> Albums</span>
-        </div>
+<div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-id="<%= product.id %>" data-name="<%= product.name %>" data-image="<%= product.image %>" data-description="<%= product.description %>" data-category="<%= product.category %>" data-price="<%= product.price %>">
+  <div class="team-member">
+    <div class="member-img">
+      <img src="<%= product.images || '/img/default-song.jpg' %>" class="img-fluid" alt="">
+      <div class="social">
+        <a href="/products/<%= product.id || '' %>"><i class="bi bi-eye"></i></a>
+        <a href="/products/edit/<%= product.id || '' %>"><i class="bi bi-pen"></i></a>
+        <form action="/products/delete/<%= product.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline;">
+            <button type="submit" style="border: none;">
+            <i class="bi bi-trash"></i>
+          </button>
+        </form>
+      </div>
     </div>
+    <div class="member-info">
+      <h4><%= product.name %></h4>
+      <span>Php <%= product.price %></span>
+    </div>
+  </div>
 </div>
