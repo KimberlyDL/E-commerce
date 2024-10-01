@@ -9,6 +9,7 @@ const productController = {
       res.render('createProducts', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         categories
       });
     } catch (error) {
@@ -85,6 +86,7 @@ const productController = {
       res.render('products', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         products
       });
 
@@ -111,6 +113,7 @@ const productController = {
       res.render('editProduct', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         product,
         categories: allCategories
       });
@@ -136,6 +139,7 @@ const productController = {
         {
           title: 'Supreme Agribet Feeds Supply Store',
           currentUrl: req.url,
+          session: req.session || {},
           product
         });
 

@@ -3,7 +3,7 @@
     <div class="product-item text-center border h-100 p-4">
       <img class="product-image img-fluid mb-4" src="<%= product.images %>" alt="<%= product.name %>">
       <div class="mb-2">
-        <% if (product.categories && product.categories.length> 0) { %>
+        <% if (product.categories && product.categories.length > 0) { %>
         <% product.categories.forEach(function(category) { %>
         <span class="badge bg-primary">
           <%= category.name %>
@@ -15,6 +15,12 @@
       </div>
       <a href="" class="h6 d-inline-block mb-2"><%= product.name %></a>
       <h5 class="text-primary mb-3">₱<%= product.price %></h5>
-      <a href="/addtocart" class="btn btn-outline-primary px-3">Add To Cart</a>
+
+      <!-- Add data-* attributes for easy access to product details -->
+      <button type="button" class="btn btn-outline-primary px-3" 
+              data-product-id="<%= product.id %>" 
+              data-product-price="<%= product.price %>"
+              onclick="addToCart(this)">Add To Cart</button>
     </div>
   </div>
+</div>

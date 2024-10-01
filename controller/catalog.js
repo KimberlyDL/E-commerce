@@ -3,20 +3,6 @@ const path = require('path');
 const { Product, ProductCategory, ProductCategoryProduct, User,  Cart, Review } = require('../models');
 
 const catalogController = {
-    home: async (req, res) => {
-        try {
-            res.render('home', {
-                title: 'Supreme Agribet Feeds Supply Store',
-                currentUrl: req.url,
-                products
-            });
-
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
-
     index: async (req, res) => {
         try {
             const products = await Product.findAll({
@@ -27,9 +13,11 @@ const catalogController = {
                 }
             });
 
+            console.log(req.sesion);
             res.render('catalog', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 products
             });
 
@@ -39,16 +27,68 @@ const catalogController = {
         }
     },
 
+    show: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const product = await Product.findByPk(id, {
+                include: [{ model: ProductCategory, as: 'categories' }],
+            });
+
+            if (!product) {
+                return res.status(404).json({ error: 'Product not found' });
+            }
+
+            res.render('viewProducts',
+                {
+                    title: 'Supreme Agribet Feeds Supply Store',
+                    currentUrl: req.url,
+                    session: req.session || {},
+                    product
+                });
+
+            //res.json(product);
+
+        } catch (error) {
+            console.error('Error fetching product:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    },
+
     addtocart: async (req, res) => {
         try {
-            const categories = await ProductCategory.findAll();
-            res.render('createProducts', {
-                title: 'Supreme Agribet Feeds Supply Store',
-                currentUrl: req.url,
-                categories
+            const { productId, quantity } = req.body;
+            const userId = req.session.userId;
+            const product = await Product.findByPk(productId);
+
+            if (!product) {
+                return res.status(404).json({ error: 'Product not found' });
+            }
+
+            let cartItem = await Cart.findOne({
+                where: {
+                    userId: userId,
+                    productId: productId
+                }
             });
+
+            if (cartItem) {
+                cartItem.quantity += parseInt(quantity, 10);
+                await cartItem.save();
+            } else {
+                cartItem = await Cart.create({
+                    userId: userId,
+                    productId: productId,
+                    quantity: parseInt(quantity, 10)
+                });
+            }
+            res.status(200).json({
+                success: true,
+                message: 'Product added to cart!',
+                cartItem
+            });
+
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error adding product to cart:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
@@ -125,35 +165,10 @@ const catalogController = {
             res.render('editProduct', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 product,
                 categories: allCategories
             });
-
-        } catch (error) {
-            console.error('Error fetching product:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
-
-    show: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const product = await Product.findByPk(id, {
-                include: [{ model: ProductCategory, as: 'categories' }],
-            });
-
-            if (!product) {
-                return res.status(404).json({ error: 'Product not found' });
-            }
-
-            res.render('viewProducts',
-                {
-                    title: 'Supreme Agribet Feeds Supply Store',
-                    currentUrl: req.url,
-                    product
-                });
-
-            //res.json(product);
 
         } catch (error) {
             console.error('Error fetching product:', error);

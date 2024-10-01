@@ -12,9 +12,36 @@
     <%- include('partials/addtocart', { product: product }) %>
     <% }); %>
     <div class="col-12 text-center">
-      <a class="btn btn-primary py-2 px-4" href="">Load More Products</a>
     </div>
   </div>
 </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const sessionUserId = "<%= session.userId || '' %>";
+
+  function addToCart(button) {
+    console.log(sessionUserId);
+    const productId = button.getAttribute('data-product-id');
+    const productPrice = button.getAttribute('data-product-price');
+    console.log(`${productId}, and ${productPrice}`);
+
+    
+    axios.post('/addtocart', {
+        productId: productId,
+        quantity: 1
+      })
+      .then(response => {
+        if (response.data.success) {
+          const cartBadge = document.querySelector('#cartBadge');
+          cartBadge.innerText = response.data.cartItemCount;
+          alert('Product added to cart!');
+        }
+      })
+      .catch(error => {
+        console.error('Error adding product to cart:', error);
+      });
+  }
+</script>
 <%- include('partials/end') %>
