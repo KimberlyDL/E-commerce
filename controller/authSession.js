@@ -16,6 +16,7 @@ const authSessionController = {
         res.render('user/signin', {
             title: 'Supreme Agribet Feeds Supply Store',
             currentUrl: req.url,
+            session: req.session || {},
         })
     },
 
@@ -30,22 +31,24 @@ const authSessionController = {
         try {
             const user = await User.findOne({ where: { email: email } });
 
-            console.log(user);
-
+            // console.log(user);
             if (user) {
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (isMatch) {
-                    req.session.Id = user.id;
+                    req.session.userId = user.id;
                     req.session.firstName = user.firstName;
                     req.session.lastName = user.lastName;
+                    req.session.role = user.role;
                     return res.redirect('/');
                 }
             }
 
-            return res.render('user/signin', {
+            console.log(false);
+            res.render('user/signin', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
-                errors: 'Invalid log in',
+                session: req.session || {},
+                errors: {msg: 'Invalid log in'},
                 formData: { email }
             });
 
@@ -54,10 +57,24 @@ const authSessionController = {
             return res.render('user/signin', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
-                errors: 'An error occurred, please try again later.',
+                session: req.session || {},
+                errors: {msg: 'An error occurred, please try again later.'},
                 formData: { email }
             });
         }
+    },
+
+    destroy: async (req, res) => {
+        // Destroy the session to log the user out
+        req.session.destroy((err) => {
+            if (err) {
+                console.error("Failed to destroy session during logout", err);
+                return res.status(500).send('Something went wrong. Please try again.');
+            }
+    
+            // Redirect the user to the login page or home page after logout
+            res.redirect('/signin');
+        });
     }
 }
 module.exports = authSessionController;

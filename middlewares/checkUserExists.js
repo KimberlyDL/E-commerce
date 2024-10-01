@@ -12,6 +12,7 @@ const checkUserExists = (req, res, next) => {
                 res.render('user/register', {
                     title: 'Supreme Agribet Feeds Supply Store',
                     currentUrl: req.url,
+                    session: req.session || {},
                     errors: ['Email already taken'], // Pass errors if they exist
                     formData: formData
                 });

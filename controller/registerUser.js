@@ -17,6 +17,7 @@ const registerUserController = {
         res.render('user/register', {
             title: 'Sign Up - Supreme Agribet Feeds Supply Store',
             currentUrl: req.url,
+            session: req.session || {},
             errors: errors.length > 0 ? errors : null, // Pass errors if they exist
             formData: formData
         });
@@ -31,6 +32,7 @@ const registerUserController = {
                     firstname: firstName,
                     lastname: lastName,
                     email: email,
+                    role: 'user',
                     password: hashedPassword,
                 };
 
@@ -48,6 +50,7 @@ const registerUserController = {
         res.render('user/forgotpassword', {
             title: 'Supreme Agribet Feeds Supply Store',
             currentUrl: req.url,
+            session: req.session || {},
         })
     }
 }

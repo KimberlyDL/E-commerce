@@ -12,6 +12,7 @@ const handleValidationErrors = (req, res, next) => {
         res.render('user/register', {
             title: 'Sign Up - Supreme Agribet Feeds Supply Store',
             currentUrl: req.url,
+            session: req.session || {},
             errors: Errors.length > 0 ? errors : null, // Pass errors if they exist
             formData: formData
         });

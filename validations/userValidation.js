@@ -24,6 +24,7 @@ const validateSignUp = [
             return res.render('user/register', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 errors: errorsArray.length > 0 ? errorsArray : null,  // Correct reference to `errorsArray`
                 formData: formData
             });
@@ -48,6 +49,7 @@ const validateLogIn = [
             return res.render('user/signin', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 errors: errorsArray.length > 0 ? errorsArray : [],  // Correct reference to `errorsArray`
                 formData: formData
             });
