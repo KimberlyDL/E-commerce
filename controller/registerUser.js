@@ -52,6 +52,14 @@ const registerUserController = {
             currentUrl: req.url,
             session: req.session || {},
         })
+    },
+
+    resetpassword: async (req, res) => {
+        res.render('user/resetpassword', {
+            title: 'Supreme Agribet Feeds Supply Store',
+            currentUrl: req.url,
+            session: req.session || {},
+        })
     }
 }
 

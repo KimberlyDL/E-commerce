@@ -7,8 +7,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const { Product, User, Cart, ProductCategory, ProductCategoryProduct, Review } = require('../models');
-
+const { Product, User, Cart, ProductCategory, ProductCategoryProduct } = require('../models');
 
 const authSessionController = {
 
@@ -29,27 +28,35 @@ const authSessionController = {
         const { email, password } = req.body;
 
         try {
-            const user = await User.findOne({ where: { email: email } });
+            // const user = await User.findOne({ where: { email: email } });
 
-            // console.log(user);
+            const user = await authSessionController.checkUserExists(email);
+
             if (user) {
                 const isMatch = await bcrypt.compare(password, user.password);
                 if (isMatch) {
-                    req.session.userId = user.id;
+                    userId = user.id;
+    
+                    const cartCount = await Cart.count({
+                        where: { userId }
+                    });
+    
+                    req.session.userId = userId;
                     req.session.firstName = user.firstName;
                     req.session.lastName = user.lastName;
                     req.session.role = user.role;
+                    req.session.cartCount = cartCount;
                     return res.redirect('/');
                 }
             }
 
-            console.log(false);
             res.render('user/signin', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
                 session: req.session || {},
                 errors: {msg: 'Invalid log in'},
-                formData: { email }
+                formData: { email },
+
             });
 
         } catch (error) {

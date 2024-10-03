@@ -1,0 +1,33 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<main>
+  <!-- Error Section -->
+  <section id="error" class="error section">
+
+    <div class="container mt-5">
+      <div class="container section-title">
+        <h2>Oops!.</h2>
+        <p>We encountered an error while processing your request.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-md-12">
+          <div class="alert alert-danger" role="alert">
+            <h4 class="alert-heading">We encountered an error while processing your request</h4>
+            <p><%= message %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container mt-4">
+      <a href="/" class="btn btn-primary">Return to Home</a>
+    </div>
+    
+  </section><!-- /Error Section -->
+</main>
+
+<%- include('partials/end') %>
