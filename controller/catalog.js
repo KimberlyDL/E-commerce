@@ -131,7 +131,6 @@ const catalogController = {
                 });
             }
 
-            //res.status(201).json({ success: true, product });
             res.redirect('/products/');
         } catch (error) {
             console.error('Error creating product:', error);
