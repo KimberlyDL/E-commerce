@@ -28,8 +28,6 @@ const authSessionController = {
         const { email, password } = req.body;
 
         try {
-            // const user = await User.findOne({ where: { email: email } });
-
             const user = await authSessionController.checkUserExists(email);
 
             if (user) {
@@ -72,14 +70,12 @@ const authSessionController = {
     },
 
     destroy: async (req, res) => {
-        // Destroy the session to log the user out
         req.session.destroy((err) => {
             if (err) {
                 console.error("Failed to destroy session during logout", err);
                 return res.status(500).send('Something went wrong. Please try again.');
             }
     
-            // Redirect the user to the login page or home page after logout
             res.redirect('/signin');
         });
     }
