@@ -2,27 +2,23 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Cart', {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable('Checkout', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      productId: {
+      cartId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Products',
+          model: 'Cart',
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-      },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -34,13 +30,21 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      checkoutId: {
-        type: DataTypes.INTEGER,
-        allowNull: true, // Nullable until checkout is completed
-        references: {
-          model: 'Checkout',
-          key: 'id',
-        },
+      shippingDiscount: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      shopDiscount: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      tax: {
+        type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      totalAmount: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -55,7 +59,7 @@ module.exports = {
     });
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Cart');
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable('Checkout');
   }
 };
