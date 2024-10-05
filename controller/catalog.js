@@ -13,7 +13,7 @@ const catalogController = {
                 }
             });
 
-            console.log(req.sesion);
+            console.log(req.session);
             res.render('catalog', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
@@ -29,31 +29,19 @@ const catalogController = {
 
     show: async (req, res) => {
         try {
-            const { id } = req.params;
-            const product = await Product.findByPk(id, {
-                include: [{ model: ProductCategory, as: 'categories' }],
+            res.render('cart', {
+                title: 'Supreme Agrivet Feeds Supply Store',
+                currentUrl: req.url,
+                // session: req.session || {},
+                // cartCount,
             });
 
-            if (!product) {
-                return res.status(404).json({ error: 'Product not found' });
-            }
-
-            res.render('viewProducts',
-                {
-                    title: 'Supreme Agribet Feeds Supply Store',
-                    currentUrl: req.url,
-                    session: req.session || {},
-                    product
-                });
-
-            //res.json(product);
-
         } catch (error) {
-            console.error('Error fetching product:', error);
+            console.error('Error fetching cart count:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
-
+    
     addtocart: async (req, res) => {
         try {
             const { productId, quantity } = req.body;
@@ -75,16 +63,19 @@ const catalogController = {
                 cartItem.quantity += parseInt(quantity, 10);
                 await cartItem.save();
             } else {
-                cartItem = await Cart.create({
+                await Cart.create({
                     userId: userId,
                     productId: productId,
                     quantity: parseInt(quantity, 10)
                 });
             }
+            const cartCount = await Cart.count({
+                where: { userId }
+            });
             res.status(200).json({
                 success: true,
                 message: 'Product added to cart!',
-                cartItem
+                cartCount
             });
 
         } catch (error) {

@@ -4,11 +4,6 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const flash = require('connect-flash');
 
-
-// const mainRouter = require("./routes/mainRouter");
-// const authRouter = require("./routes/authRouter");
-// const userRouter = require("./routes/userRouter");
-// const adminRouter = require("./routes/adminRouter");
 const router = require("./routes/router");
 
 
@@ -41,12 +36,6 @@ app.use((req, res, next) => {
 
 app.use(express.static('public'));
 
-
-
-// app.use('/', mainRouter);
-// app.use('/', authRouter);
-// app.use('/', userRouter);
-// app.use('/admin', adminRouter);
 app.use('/', router);
 
 
