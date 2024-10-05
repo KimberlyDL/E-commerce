@@ -42,12 +42,14 @@ router.get('/', mainController.welcome);
 
 //auth
 router.get('/signup', registerUserController.create);
+
 router.post('/signup', signUpMiddleware, registerUserController.post);
 router.get('/signin', authSessionController.create);
 router.post('/signin', validateLogIn, authSessionController.post);
 router.get('/logout', isAuthenticated, authSessionController.destroy);
 router.get('/forgotpassword', registerUserController.forgotpassword);
 router.get('/resetpassword', registerUserController.resetpassword);
+
 
 //admin
 

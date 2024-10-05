@@ -1,6 +1,14 @@
+const { Product, Cart } = require('../models');
+
 const cartController = {
     index: async (req, res) => {
         try {
+            const id = req.session.userId;
+            const products = await Product.findall({
+                where: { id: id },
+                as: 'products',
+            })
+
             res.render('cart', {
                 title: 'Supreme Agrivet Feeds Supply Store',
                 currentUrl: req.url,
