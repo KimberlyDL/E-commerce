@@ -3,23 +3,27 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Cart extends Model {
     static associate(models) {
+      // Cart belongs to Product
       Cart.belongsTo(models.Product, {
         foreignKey: 'productId',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+      // Cart belongs to User
       Cart.belongsTo(models.User, {
         foreignKey: 'userId',
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+      // Cart belongs to Checkout
       Cart.belongsTo(models.Checkout, {
         foreignKey: 'checkoutId',
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+        onDelete: 'SET NULL',  // If Checkout is deleted, set the checkoutId to NULL
       });
     }
   }
+
   Cart.init({
     productId: {
       type: DataTypes.INTEGER,
@@ -43,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     checkoutId: {
       type: DataTypes.INTEGER,
-      allowNull: true, // Nullable until the checkout is created
+      allowNull: true, // Nullable until checkout is created
       references: {
-        model: 'Checkout', // Name of the table it references
-        key: 'id', // Primary key in Checkout table
+        model: 'Checkout',
+        key: 'id',
       },
     }
   }, {
@@ -54,5 +58,6 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Cart',
     tableName: 'Cart',
   });
+
   return Cart;
 };

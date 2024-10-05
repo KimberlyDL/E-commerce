@@ -9,22 +9,17 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+
+      // Checkout has many Cart entries (so it can handle multiple items in one checkout)
       Checkout.hasMany(models.Cart, {
-        foreignKey: 'cartId',
+        foreignKey: 'checkoutId', // Updated to be 'checkoutId'
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
     }
   }
+  
   Checkout.init({
-    cartId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Cart',
-        key: 'id',
-      },
-    },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -32,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Users',
         key: 'id',
       },
+    },
+    totalAmount: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
     },
     shippingDiscount: {
       type: DataTypes.FLOAT,
@@ -45,14 +44,42 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    totalAmount: {
+    shippingCost: {
       type: DataTypes.FLOAT,
-      allowNull: false,
+      allowNull: true,
     },
+    paymentStatus: {
+      type: DataTypes.ENUM('pending', 'paid', 'failed', 'refunded'),
+      allowNull: false,
+      defaultValue: 'pending',
+    },
+    paymentMethod: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    transactionId: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    completedAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+    }
   }, {
     sequelize,
     modelName: 'Checkout',
     tableName: 'Checkout',
   });
+  
   return Checkout;
 };

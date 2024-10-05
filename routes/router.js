@@ -68,7 +68,7 @@ router.get("/admin/reports", isValidAdmin, salesController.index);
 
 //user
 router.get("/shop", isValidUser, catalogController.index)
-router.post("/addtocart", isValidUser, catalogController.addtocart);
+router.post("/addtocart", isValidUser, cartController.addtocart);
 
 router.get("/cart", isValidUser, cartController.index);
 

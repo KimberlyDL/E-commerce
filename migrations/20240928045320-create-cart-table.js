@@ -35,12 +35,14 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       checkoutId: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,  // Changed from DataTypes to Sequelize.INTEGER for consistency
         allowNull: true, // Nullable until checkout is completed
         references: {
-          model: 'Checkout',
+          model: 'Checkout', // References the Checkout table
           key: 'id',
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL', // Set checkoutId to NULL if the checkout is deleted
       },
       createdAt: {
         allowNull: false,

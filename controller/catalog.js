@@ -84,61 +84,6 @@ const catalogController = {
         }
     },
 
-    //addtocart
-    post: async (req, res) => {
-        try {
-            const { name, price, description, categories, customCategories } = req.body;
-
-            imagePath = '';
-
-            if (req.file) {
-                const filename = req.file.filename;
-                imagePath = `/uploads/product/${filename}`;
-            }
-
-            const product = await Product.create({
-                name,
-                price,
-                description,
-                images: imagePath,
-            });
-
-            const productID = product.id;
-            let allCategoryIds = [];
-
-            if (categories && Array.isArray(categories)) {
-                allCategoryIds.push(...categories);
-            }
-
-            if (customCategories) {
-                const customCategoryArray = customCategories.split(',').map(c => c.trim());
-
-                for (const customCategoryName of customCategoryArray) {
-                    let category = await ProductCategory.findOne({ where: { name: customCategoryName } });
-
-                    if (!category) {
-                        category = await ProductCategory.create({ name: customCategoryName });
-                    }
-
-                    allCategoryIds.push(category.id);
-                }
-            }
-
-            for (const categoryId of allCategoryIds) {
-                await ProductCategoryProduct.create({
-                    product_id: productID,
-                    category_id: categoryId
-                });
-            }
-
-            //res.status(201).json({ success: true, product });
-            res.redirect('/products/');
-        } catch (error) {
-            console.error('Error creating product:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
-
     edit: async (req, res) => {
         try {
             const { id } = req.params;
