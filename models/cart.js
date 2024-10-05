@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       });
+      Cart.belongsTo(models.Checkout, {
+        foreignKey: 'checkoutId',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
     }
   }
   Cart.init({
@@ -36,6 +41,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    checkoutId: {
+      type: DataTypes.INTEGER,
+      allowNull: true, // Nullable until the checkout is created
+      references: {
+        model: 'Checkout', // Name of the table it references
+        key: 'id', // Primary key in Checkout table
+      },
+    }
   }, {
     sequelize,
     modelName: 'Cart',
