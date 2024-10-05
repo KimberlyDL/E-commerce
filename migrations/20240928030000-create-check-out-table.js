@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Checkout', {
       id: {
         allowNull: false,
@@ -10,25 +10,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      cartId: {
+      userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Cart',
+          model: 'Users', // References the Users table
           key: 'id',
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
-      userId: {
-        type: Sequelize.INTEGER,
+      totalAmount: {
+        type: Sequelize.FLOAT,
         allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       shippingDiscount: {
         type: Sequelize.FLOAT,
@@ -42,9 +36,26 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: true,
       },
-      totalAmount: {
+      shippingCost: {
         type: Sequelize.FLOAT,
+        allowNull: true,
+      },
+      paymentStatus: {
+        type: Sequelize.ENUM('pending', 'paid', 'failed', 'refunded'),
         allowNull: false,
+        defaultValue: 'pending',
+      },
+      paymentMethod: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      transactionId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      completedAt: {
+        type: Sequelize.DATE,
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -55,11 +66,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      }
+      },
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Checkout');
   }
 };
