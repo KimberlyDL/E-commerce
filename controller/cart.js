@@ -4,7 +4,7 @@ const cartController = {
     index: async (req, res) => {
         try {
             const id = req.session.userId;
-            const products = await Product.findall({
+            const products = await Product.findAll({
                 where: { id: id },
                 as: 'products',
             })
