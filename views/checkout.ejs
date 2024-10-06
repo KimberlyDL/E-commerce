@@ -1,0 +1,114 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<section class="checkout-list section custom-padding">
+  <div class="container section-title custom-padding">
+    <h2>Your Orders</h2>
+    <p>Review your order history</p>
+  </div>
+
+  <div class="container">
+    <div class="card my-5">
+      <div class="card-body">
+        <!-- Order History Table -->
+        <table id="checkoutListTable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Order Reference</th>
+              <th>Total Amount</th>
+              <th>Payment Status</th>
+              <th>Payment Method</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% checkouts.forEach(checkout => { %>
+            <tr class="checkout-row" data-id="<%= checkout.id %>">
+              <td><%= checkout.referenceNumber %></td>
+              <td>PHP <%= checkout.totalAmount %></td>
+              <td><%= checkout.paymentStatus %></td>
+              <td><%= checkout.paymentMethod %></td>
+              <td><%= checkout.createdAt.toDateString() %></td>
+              <td><button class="btn btn-primary btn-sm view-details" data-id="<%= checkout.id %>">View Details</button></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal for viewing checkout details -->
+<div class="modal fade" id="checkoutDetailsModal" tabindex="-1" role="dialog" aria-labelledby="checkoutDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutDetailsModalLabel">Order Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Content will be dynamically loaded here -->
+        <p>Loading...</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Initialize DataTable
+    $('#checkoutListTable').DataTable();
+
+    // When the user clicks the 'View Details' button
+    $('.view-details').on('click', function() {
+      const checkoutId = $(this).data('id');
+
+      // Fetch checkout details from the server using Axios
+      axios.get(`/cart/checkout/${checkoutId}`)
+        .then(response => {
+          const checkout = response.data.checkout;
+          const checkoutItems = response.data.checkoutItems;
+
+          // Populate the modal body with the checkout details
+          let modalBody = `
+            <p><strong>Order Reference:</strong> ${checkout.referenceNumber}</p>
+            <p><strong>Total Amount:</strong> PHP ${checkout.totalAmount}</p>
+            <p><strong>Order Date:</strong> ${new Date(checkout.completedAt).toLocaleDateString()}</p>
+            <ul>
+              ${checkoutItems.map(item => `
+                <li>
+                  <strong>Product:</strong> ${item.Product.name} <br>
+                  <strong>Quantity:</strong> ${item.quantity} <br>
+                  <strong>Price:</strong> PHP ${item.price}
+                </li>
+              `).join('')}
+            </ul>
+          `;
+
+          // Inject the generated content into the modal body
+          $('#checkoutDetailsModal .modal-body').html(modalBody);
+
+          // Show the modal
+          $('#checkoutDetailsModal').modal('show');
+        })
+        .catch(error => {
+          console.error('Error fetching checkout details:', error);
+          $('#checkoutDetailsModal .modal-body').html('<p>Error loading order details.</p>');
+          $('#checkoutDetailsModal').modal('show');
+        });
+    });
+  });
+</script>
+<%- include('partials/end') %>

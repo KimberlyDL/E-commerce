@@ -4,22 +4,40 @@
     <a href="/" class="logo d-flex align-items-center">
       <!-- Uncomment the line below if you also wish to use an image logo -->
       <!-- <img src="assets/img/logo.png" alt=""> -->
-      <h1 class="sitename">Supreme Aggrivet System</h1>
+
+      <h1 class="sitename">Supreme</h1>
     </a>
 
     <nav id="navmenu" class="navmenu">
       <ul>
+        <% if (!session.userId) { %>
+        <!-- If the user is not logged in -->
+        <li><a href="/signin" class="<%= currentUrl === '/signin' ? 'active' : '' %>">Sign in</a></li>
+        <li><a href="/signup" class="<%= currentUrl === '/signup' ? 'active' : '' %>">Sign up</a></li>
+
+        <% } else if (session.userId && session.role !== 'admin' ){ %>
+        <!-- If the user is logged in -->
         <li><a href="/" class="<%= currentUrl === '/' ? 'active' : '' %>">Home</a></li>
         <li><a href="/shop" class="<%= currentUrl === '/shop' ? 'active' : '' %>">Shop</a></li>
-        <li><a href="/cart" class="<%= currentUrl === '/cart' ? 'active' : '' %>"><i class="bi bi-bag-plus-fill"></i></a></li>
-        
+        <li><a href="/cart" class="<%= currentUrl === '/cart' ? 'active' : '' %>"><i class="bi bi-bag-plus-fill"></i></a>
+          <span id="cartBadge" class="badge bg-danger"><%= session.cartCount ?? 0 %></span>
+        </li>
+        <li><a href="/cart/check-out" class="<%= currentUrl === '/cart/check-out' ? 'active' : '' %>">Purchases</a></li>
+        <li><a href="/logout" class="<%= currentUrl === '/logout' ? 'active' : '' %>">Log out</a></li>
+        <% } %>
 
-        <li class="dropdown"><a href="#"><span>Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+        <% if (session.userId && session.role==='admin' ) { %>
+        <li class="dropdown"><a><span class="text-white">Admin</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
           <ul class="">
-            <li><a href="/products/" class="<%= currentUrl === '/products/' ? 'active' : '' %>">Products</a></li>
-            <li><a href="/products/create" class="<%= currentUrl === '/products/create' ? 'active' : '' %>">Create Products</a></li>
+            <li><a href="/admin/products/" class="<%= currentUrl === '/admin/products/' ? 'active' : '' %>">Products</a></li>
+            <li><a href="/admin/products/create" class="<%= currentUrl === '/admin/products/create' ? 'active' : '' %>">Create Products</a></li>
+            <li><a href="/admin/users" class="<%= currentUrl === '/admin/users' ? 'active' : '' %>">Users</a></li>
+            <li><a href="/admin/reports" class="<%= currentUrl === '/admin/reports' ? 'active' : '' %>">Reports</a></li>
           </ul>
         </li>
+        <li><a href="/logout" class="<%= currentUrl === '/logout' ? 'active' : '' %>">Log out</a></li>
+        <% } %>
+        <!-- End of admin-specific menu items -->
       </ul>
       <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>

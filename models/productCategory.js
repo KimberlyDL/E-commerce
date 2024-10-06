@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
   class ProductCategory extends Model {
     static associate(models) {
       ProductCategory.belongsToMany(models.Product, {
-        through: 'ProductCategoryProduct', // The join table
-        foreignKey: 'category_id',         // Foreign key in ProductCategoryProduct table for ProductCategory
-        otherKey: 'product_id',            // Foreign key in ProductCategoryProduct table for Product
-        as: 'products'                     // Alias for the associated products
+        through: 'ProductCategoryProduct',
+        foreignKey: 'category_id',
+        otherKey: 'product_id',
+        as: 'products'
       });    }
   }
   ProductCategory.init({

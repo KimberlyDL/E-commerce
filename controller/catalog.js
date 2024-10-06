@@ -1,21 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const { Product, Cart, ProductCategory, ProductCategoryProduct, User, Review } = require('../models');
+const { Product, ProductCategory, ProductCategoryProduct, User,  Cart, Review } = require('../models');
 
 const catalogController = {
-    home: async (req, res) => {
-        try {
-            res.render('home', {
-                title: 'Supreme Agribet Feeds Supply Store',
-                currentUrl: req.url
-            });
-
-        } catch (error) {
-            console.error('Error fetching products:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
-
     index: async (req, res) => {
         try {
             const products = await Product.findAll({
@@ -26,9 +13,11 @@ const catalogController = {
                 }
             });
 
+            console.log(req.session);
             res.render('catalog', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 products
             });
 
@@ -38,71 +27,59 @@ const catalogController = {
         }
     },
 
-
-    addtocart: async (req, res) => {
+    show: async (req, res) => {
         try {
-            const categories = await ProductCategory.findAll();
-            res.render('createProducts', {
-                title: 'Supreme Agribet Feeds Supply Store',
+            res.render('cart', {
+                title: 'Supreme Agrivet Feeds Supply Store',
                 currentUrl: req.url,
-                categories
+                // session: req.session || {},
+                // cartCount,
             });
+
         } catch (error) {
-            console.error('Error fetching categories:', error);
+            console.error('Error fetching cart count:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
-
-    post: async (req, res) => {
+    
+    addtocart: async (req, res) => {
         try {
-            const { name, price, description, categories, customCategories } = req.body;
+            const { productId, quantity } = req.body;
+            const userId = req.session.userId;
+            const product = await Product.findByPk(productId);
 
-            imagePath = '';
-
-            if (req.file) {
-                const filename = req.file.filename;
-                imagePath = `/uploads/product/${filename}`;
+            if (!product) {
+                return res.status(404).json({ error: 'Product not found' });
             }
 
-            const product = await Product.create({
-                name,
-                price,
-                description,
-                images: imagePath,
+            let cartItem = await Cart.findOne({
+                where: {
+                    userId: userId,
+                    productId: productId
+                }
             });
 
-            const productID = product.id;
-            let allCategoryIds = [];
-
-            if (categories && Array.isArray(categories)) {
-                allCategoryIds.push(...categories);
-            }
-
-            if (customCategories) {
-                const customCategoryArray = customCategories.split(',').map(c => c.trim());
-
-                for (const customCategoryName of customCategoryArray) {
-                    let category = await ProductCategory.findOne({ where: { name: customCategoryName } });
-
-                    if (!category) {
-                        category = await ProductCategory.create({ name: customCategoryName });
-                    }
-
-                    allCategoryIds.push(category.id);
-                }
-            }
-
-            for (const categoryId of allCategoryIds) {
-                await ProductCategoryProduct.create({
-                    product_id: productID,
-                    category_id: categoryId
+            if (cartItem) {
+                cartItem.quantity += parseInt(quantity, 10);
+                await cartItem.save();
+            } else {
+                await Cart.create({
+                    userId: userId,
+                    productId: productId,
+                    quantity: parseInt(quantity, 10)
                 });
             }
+            const cartCount = await Cart.count({
+                where: { userId }
+            });
+            res.status(200).json({
+                success: true,
+                message: 'Product added to cart!',
+                cartCount
+            });
 
-            //res.status(201).json({ success: true, product });
-            res.redirect('/products/');
         } catch (error) {
-            console.error('Error creating product:', error);
+            console.error('Error adding product to cart:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
@@ -124,35 +101,10 @@ const catalogController = {
             res.render('editProduct', {
                 title: 'Supreme Agribet Feeds Supply Store',
                 currentUrl: req.url,
+                session: req.session || {},
                 product,
                 categories: allCategories
             });
-
-        } catch (error) {
-            console.error('Error fetching product:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    },
-
-    show: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const product = await Product.findByPk(id, {
-                include: [{ model: ProductCategory, as: 'categories' }],
-            });
-
-            if (!product) {
-                return res.status(404).json({ error: 'Product not found' });
-            }
-
-            res.render('viewProducts',
-                {
-                    title: 'Supreme Agribet Feeds Supply Store',
-                    currentUrl: req.url,
-                    product
-                });
-
-            //res.json(product);
 
         } catch (error) {
             console.error('Error fetching product:', error);

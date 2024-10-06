@@ -9,6 +9,7 @@ const productController = {
       res.render('createProducts', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         categories
       });
     } catch (error) {
@@ -21,9 +22,6 @@ const productController = {
     try {
       const { name, price, description, categories, customCategories } = req.body;
 
-      // if (!file) {
-      //     return res.status(400).json({ message: 'No file uploaded.' });
-      // }
       imagePath = '';
 
       if (req.file) {
@@ -67,7 +65,7 @@ const productController = {
       }
 
       //res.status(201).json({ success: true, product });
-      res.redirect('/products/');
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error creating product:', error);
       res.status(500).json({ error: 'Internal server error' });
@@ -88,6 +86,7 @@ const productController = {
       res.render('products', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         products
       });
 
@@ -114,6 +113,7 @@ const productController = {
       res.render('editProduct', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
+        session: req.session || {},
         product,
         categories: allCategories
       });
@@ -139,6 +139,7 @@ const productController = {
         {
           title: 'Supreme Agribet Feeds Supply Store',
           currentUrl: req.url,
+          session: req.session || {},
           product
         });
 
@@ -242,7 +243,7 @@ const productController = {
         });
       }
       await product.destroy();
-      res.redirect('/products/');
+      res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error deleting product:', error);
       res.status(500).json({ error: 'Internal server error' });

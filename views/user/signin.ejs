@@ -1,0 +1,66 @@
+<%- include('../partials/start') %>
+<%- include('../partials/nav') %>
+
+
+<main class="custom-padding">
+  <!-- Artist Section -->
+  <section id="team" class="team section">
+
+    <div class="container">
+      <div class="container section-title">
+        <h2>Sign in</h2>
+        <p>Start shopping</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <form action="/signin" method="POST">
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input id="email" name="email" type="email" class="form-control" autocomplete="email" required value="<%= formData ? formData.email : '' %>">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input id="password" name="password" type="password" class="form-control" required>
+              <div class="mt-2">
+                <a href="/forgotpassword" class="text-decoration-none">Forgot password?</a>
+              </div>
+            </div>
+
+            <!-- Error Messages -->
+            <% if (errors && errors.length > 0) { %>
+            <div class="errors text-danger">
+              <ul>
+                <% errors.forEach(function(error) { %>
+                <li>
+                  <%= error.msg %>
+                </li>
+                <% }) %>
+              </ul>
+            </div>
+            <% } %>
+
+            <!-- Submit Button -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+          </form>
+
+          <p class="mt-4 text-center text-muted">
+            Create an account?
+            <a href="/signup" class="text-decoration-none">Sign up</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section><!-- /Artist Section -->
+
+</main>
+
+
+</main>
+<%- include('../partials/end') %>

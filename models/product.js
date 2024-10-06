@@ -8,7 +8,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'product_id',          // Foreign key in ProductCategoryProduct table for Product
         otherKey: 'category_id',           // Foreign key in ProductCategoryProduct table for ProductCategory
         as: 'categories'                   // Alias for the associated categories
-      });    }
+      });
+      Product.hasMany(models.Cart, {
+        foreignKey: 'productId',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+      Product.hasMany(models.CheckoutItem, {
+        foreignKey: 'checkoutId',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      });
+    }
   }
   Product.init({
     name: {
@@ -20,11 +31,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     price: {
-      type: DataTypes.FLOAT, // Changed to FLOAT as per common practice for prices
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     createdAt: {
       allowNull: false,
