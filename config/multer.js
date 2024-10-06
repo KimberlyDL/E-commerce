@@ -3,7 +3,7 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
-const userUploadDir = path.join(__dirname, '..', 'public', 'uploads', 'user');
+const userUploadDir = './public/uploads/user';
 
 const uploadDir = './public/uploads/product';
 

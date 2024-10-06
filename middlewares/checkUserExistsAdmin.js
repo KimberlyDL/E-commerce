@@ -9,7 +9,7 @@ const checkUserExists = (req, res, next) => {
             if (user) {
                 const formData = req.body;
 
-                return res.render('user/register', {
+                return res.render('admin/user/addUser', {
                     title: 'Supreme Agribet Feeds Supply Store',
                     currentUrl: req.url,
                     session: req.session || {},

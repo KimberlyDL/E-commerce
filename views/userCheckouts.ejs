@@ -3,8 +3,8 @@
 
 <section class="checkout-list section custom-padding">
   <div class="container section-title custom-padding">
-    <h2>Your Orders</h2>
-    <p>Review your order history</p>
+    <h2>Order History (Admin View)</h2>
+    <p>Review all customer orders</p>
   </div>
 
   <div class="container">
@@ -15,6 +15,8 @@
           <thead>
             <tr>
               <th>Order Reference</th>
+              <th>User</th> <!-- New column for user details -->
+              <th>Email</th> <!-- New column for email -->
               <th>Total Amount</th>
               <th>Payment Status</th>
               <th>Payment Method</th>
@@ -26,6 +28,8 @@
             <% checkouts.forEach(checkout => { %>
             <tr class="checkout-row" data-id="<%= checkout.id %>">
               <td><%= checkout.referenceNumber %></td>
+              <td><%= checkout.User.firstname %> <%= checkout.User.lastname %></td> <!-- Full name -->
+              <td><%= checkout.User.email %></td> <!-- Email -->
               <td>PHP <%= checkout.totalAmount %></td>
               <td><%= checkout.paymentStatus %></td>
               <td><%= checkout.paymentMethod %></td>
@@ -39,6 +43,7 @@
     </div>
   </div>
 </section>
+
 
 <!-- Modal for viewing checkout details -->
 <div class="modal fade" id="checkoutDetailsModal" tabindex="-1" role="dialog" aria-labelledby="checkoutDetailsModalLabel" aria-hidden="true">
@@ -61,6 +66,7 @@
   </div>
 </div>
 
+
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -77,14 +83,16 @@
       const checkoutId = $(this).data('id');
 
       // Fetch checkout details from the server using Axios
-      axios.get(`/cart/check-out/${checkoutId}`)
+      axios.get(`/admin/check-out/${checkoutId}`)
         .then(response => {
           const checkout = response.data.checkout;
           const checkoutItems = response.data.checkoutItems;
 
-          // Populate the modal body with the checkout details
+          // Populate the modal body with the checkout and user details
           let modalBody = `
             <p><strong>Order Reference:</strong> ${checkout.referenceNumber}</p>
+            <p><strong>User:</strong> ${checkout.User.firstname} ${checkout.User.lastname}</p>
+            <p><strong>Email:</strong> ${checkout.User.email}</p>
             <p><strong>Total Amount:</strong> PHP ${checkout.totalAmount}</p>
             <p><strong>Order Date:</strong> ${new Date(checkout.completedAt).toLocaleDateString()}</p>
             <ul>
@@ -112,4 +120,5 @@
     });
   });
 </script>
+
 <%- include('partials/end') %>

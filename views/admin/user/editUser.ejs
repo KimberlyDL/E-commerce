@@ -1,0 +1,83 @@
+<%- include('../../partials/start') %>
+<%- include('../../partials/nav') %>
+
+<section id="team" class="team section">
+  <div class="container section-title mt-5">
+    <h2>User Profile</h2>
+    <p>Edit Account Details</p>
+  </div>
+
+  <div class="container">
+    <!-- Use the correct action for updating the user -->
+    <form action="/admin/users/edit/<%= user.id %>" method="POST" enctype="multipart/form-data">
+
+      <div><input type="hidden" name="oldImage" value="<%= user.avatar %>"></div>
+      <div><input type="hidden" name="email" value="<%= user.email %>"></div>
+      <!-- Upload Picture Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="picture" class="form-label">Upload Picture:</label>
+          <div class="input-group input-group-lg">
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- First Name Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="firstName" class="form-label">First Name:</label>
+          <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First name" value="<%= user.firstname %>" required>
+        </div>
+      </div>
+
+      <!-- Last Name Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="lastName" class="form-label">Last Name:</label>
+          <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last name" value="<%= user.lastname %>" required>
+        </div>
+      </div>
+
+      <!-- Username Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username" value="<%= user.username %>" required>
+        </div>
+      </div>
+
+      <!-- Phone Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="phone">Phone Number</label>
+          <input type="tel" class="form-control" name="phone" id="phone" pattern="[0-9+ -]+" placeholder="09123456789" value="<%= user.phone %>" required>
+        </div>
+      </div>
+
+      <!-- Address Field -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-start">
+          <label for="address">Address</label>
+          <textarea class="form-control" name="address" id="address" required><%= user.address %></textarea>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-center">
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+
+      <!-- Cancel Button -->
+      <div class="row justify-content-center gy-4 mb-1">
+        <div class="col-md-6 text-center">
+          <a href="/admin/users" class="btn btn-secondary">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<%- include('../../partials/end') %>

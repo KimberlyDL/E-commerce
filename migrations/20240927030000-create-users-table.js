@@ -18,6 +18,7 @@ module.exports = {
       },
       avatar: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       username: {
         type: Sequelize.STRING,
@@ -34,9 +35,11 @@ module.exports = {
       },
       phone: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       role: {
         type: Sequelize.STRING
