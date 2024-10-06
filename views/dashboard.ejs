@@ -1,299 +1,240 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-commerce Dashboard</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .dashboard-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .card {
-            margin-bottom: 20px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-            border-radius: 10px;
-        }
-        .stat-card {
-            border-left: 4px solid #007bff;
-            transition: transform 0.2s;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        .dashboard-title {
-            color: #333;
-            margin-bottom: 30px;
-            font-size: 24px;
-            padding: 20px 0;
-            border-bottom: 2px solid #eee;
-        }
-        .stats-icon {
-            font-size: 2rem;
-            color: #007bff;
-            opacity: 0.8;
-        }
-        .progress {
-            height: 10px;
-            border-radius: 5px;
-        }
-        .card-header {
-            background-color: #fff;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            padding: 15px 20px;
-        }
-        .card-body {
-            padding: 20px;
-        }
-        .list-group-item {
-            border: none;
-            padding: 12px 20px;
-            margin-bottom: 5px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-        }
-        @media (max-width: 768px) {
-            .dashboard-container {
-                padding: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<section id="team" class="team section custom-padding">
+  <div class="container section-title custom-padding">
+    <h2>E-commerce Dashboard</h2>
+    <p>Check your progress</p>
+  </div>
+  <div class="container">
     <div class="dashboard-container">
-        <h1 class="dashboard-title">E-commerce Dashboard</h1>
-        
-        <!-- Sales Overview Section -->
-        <div class="row mb-4">
-            <div class="col-md-3 col-sm-6">
-                <div class="card stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h6 class="text-muted">Total Revenue</h6>
-                                <h3>PHP 1,234,567</h3>
-                            </div>
-                            <div class="stats-icon">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                        </div>
-                    </div>
+      <!-- Sales Overview Section -->
+      <div class="row mb-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6 class="text-muted">Total Revenue</h6>
+                  <h3>PHP 1,234,567</h3>
                 </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h6 class="text-muted">Orders Completed</h6>
-                                <h3>456</h3>
-                            </div>
-                            <div class="stats-icon">
-                                <i class="fas fa-shopping-cart"></i>
-                            </div>
-                        </div>
-                    </div>
+                <div class="stats-icon">
+                  <i class="fas fa-dollar-sign"></i>
                 </div>
+              </div>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h6 class="text-muted">Average Order Value</h6>
-                                <h3>PHP 2,708</h3>
-                            </div>
-                            <div class="stats-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="card stat-card">
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h6 class="text-muted">Conversion Rate</h6>
-                                <h3>3.2%</h3>
-                            </div>
-                            <div class="stats-icon">
-                                <i class="fas fa-percentage"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6 class="text-muted">Orders Completed</h6>
+                  <h3>456</h3>
+                </div>
+                <div class="stats-icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6 class="text-muted">Average Order Value</h6>
+                  <h3>PHP 2,708</h3>
+                </div>
+                <div class="stats-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <h6 class="text-muted">Conversion Rate</h6>
+                  <h3>3.2%</h3>
+                </div>
+                <div class="stats-icon">
+                  <i class="fas fa-percentage"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Sales Chart -->
-        <div class="row mb-4">
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Sales Trends</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="salesChart" height="300"></canvas>
-                    </div>
-                </div>
+      <!-- Sales Chart -->
+      <div class="row mb-4">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Sales Trends</h5>
             </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Order Status</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="orderStatusChart" height="300"></canvas>
-                    </div>
-                </div>
+            <div class="card-body">
+              <canvas id="salesChart" height="300"></canvas>
             </div>
+          </div>
         </div>
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Order Status</h5>
+            </div>
+            <div class="card-body">
+              <canvas id="orderStatusChart" height="300"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Order Details and Product Performance -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Order Details</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h6 class="mb-3">Orders in Progress</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <span class="text-muted">Preparing: 15</span>
-                                <span class="text-muted">Shipping: 25</span>
-                                <span class="text-muted">Delivered: 35</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h6 class="mb-3">Order Statistics</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Pending Orders
-                                    <span class="badge bg-primary rounded-pill">14</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Cancelled Orders
-                                    <span class="badge bg-danger rounded-pill">2</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Returned Orders
-                                    <span class="badge bg-warning rounded-pill">1</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      <!-- Order Details and Product Performance -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Order Details</h5>
             </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0">Product Performance</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h6 class="mb-3">Best Selling Products</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Chicken Feed
-                                    <span class="badge bg-success rounded-pill">150 units</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Chicken Medicine
-                                    <span class="badge bg-success rounded-pill">120 units</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h6 class="mb-3">Low Stock Alert</h6>
-                            <ul class="list-group">
-                                <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
-                                    Product A
-                                    <span>5 units left</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center text-warning">
-                                    Product B
-                                    <span>10 units left</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="card-body">
+              <div class="mb-4">
+                <h6 class="mb-3">Orders in Progress</h6>
+                <div class="progress mb-3">
+                  <div class="progress-bar bg-primary" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+                <div class="d-flex justify-content-between">
+                  <span class="text-muted">Preparing: 15</span>
+                  <span class="text-muted">Shipping: 25</span>
+                  <span class="text-muted">Delivered: 35</span>
+                </div>
+              </div>
+              <div>
+                <h6 class="mb-3">Order Statistics</h6>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Pending Orders
+                    <span class="badge bg-primary rounded-pill">14</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Cancelled Orders
+                    <span class="badge bg-danger rounded-pill">2</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Returned Orders
+                    <span class="badge bg-warning rounded-pill">1</span>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title mb-0">Product Performance</h5>
+            </div>
+            <div class="card-body">
+              <div class="mb-4">
+                <h6 class="mb-3">Best Selling Products</h6>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Chicken Feed
+                    <span class="badge bg-success rounded-pill">150 units</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Chicken Medicine
+                    <span class="badge bg-success rounded-pill">120 units</span>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h6 class="mb-3">Low Stock Alert</h6>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
+                    Product A
+                    <span>5 units left</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center text-warning">
+                    Product B
+                    <span>10 units left</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.js"></script>
-    <script>
-        // Sample data for charts
-        const salesData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Sales',
-                data: [65000, 59000, 80000, 81000, 56000, 95000],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }]
-        };
+</section>
 
-        const orderStatusData = {
-            labels: ['Preparing', 'Shipping', 'Delivered', 'Cancelled'],
-            datasets: [{
-                data: [15, 25, 35, 2],
-                backgroundColor: [
-                    'rgba(255, 205, 86, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(255, 99, 132, 0.8)'
-                ]
-            }]
-        };
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.umd.js"></script>
+<script>
+  // Sample data for charts
+  const salesData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [{
+      label: 'Sales',
+      data: [65000, 59000, 80000, 81000, 56000, 95000],
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+    }]
+  };
 
-        // Initialize charts
-        new Chart(document.getElementById('salesChart'), {
-            type: 'line',
-            data: salesData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Monthly Sales Trend'
-                    }
-                }
-            }
-        });
+  const orderStatusData = {
+    labels: ['Preparing', 'Shipping', 'Delivered', 'Cancelled'],
+    datasets: [{
+      data: [15, 25, 35, 2],
+      backgroundColor: [
+        'rgba(255, 205, 86, 0.8)',
+        'rgba(54, 162, 235, 0.8)',
+        'rgba(75, 192, 192, 0.8)',
+        'rgba(255, 99, 132, 0.8)'
+      ]
+    }]
+  };
 
-        new Chart(document.getElementById('orderStatusChart'), {
-            type: 'doughnut',
-            data: orderStatusData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+  // Initialize charts
+  new Chart(document.getElementById('salesChart'), {
+    type: 'line',
+    data: salesData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: 'Monthly Sales Trend'
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('orderStatusChart'), {
+    type: 'doughnut',
+    data: orderStatusData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }
+  });
+</script>
+<%- include('partials/end') %>

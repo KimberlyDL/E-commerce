@@ -2589,6 +2589,9 @@ section,
   font-size: 14px;
 }
 
+
+
+/* custom design by kim */
 .custom-padding {
   padding-top: 5rem;
 }
@@ -2600,4 +2603,112 @@ section,
 
 .errors.text-danger ul li {
   font-size: .8rem;
+}
+
+
+
+/* dashboard design by darwin */
+.custom-bog-color {
+  background-color: #f8f9fa;
+}
+.dashboard-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.card {
+  margin-bottom: 20px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border-radius: 10px;
+}
+.stat-card {
+  border-left: 4px solid #007bff;
+  transition: transform 0.2s;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+.dashboard-title {
+  color: #333;
+  margin-bottom: 30px;
+  font-size: 24px;
+  padding: 20px 0;
+  border-bottom: 2px solid #eee;
+}
+.stats-icon {
+  font-size: 2rem;
+  color: #007bff;
+  opacity: 0.8;
+}
+.progress {
+  height: 10px;
+  border-radius: 5px;
+}
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding: 15px 20px;
+}
+.card-body {
+  padding: 20px;
+}
+.list-group-item {
+  border: none;
+  padding: 12px 20px;
+  margin-bottom: 5px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+@media (max-width: 768px) {
+  .dashboard-container {
+      padding: 10px;
+  }
+}
+
+
+/* cart custom design by darwin */
+.checkout-step {
+  display: none;
+}
+.checkout-step.active {
+  display: block;
+}
+.step {
+  text-align: center;
+  position: relative;
+  flex: 1;
+}
+.step-number {
+  width: 30px;
+  height: 30px;
+  background: #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+.step.active .step-number {
+  background: #007bff;
+  color: white;
+}
+.step.completed .step-number {
+  background: #28a745;
+  color: white;
+}
+.product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+.payment-method {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.payment-method.selected {
+  border-color: #007bff;
+  background: #f8f9fa;
 }

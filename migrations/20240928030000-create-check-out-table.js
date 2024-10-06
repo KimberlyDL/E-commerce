@@ -24,6 +24,11 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
+      referenceNumber: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
       shippingDiscount: {
         type: Sequelize.FLOAT,
         allowNull: true,
@@ -72,5 +77,5 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Checkout');
-  }
+  },
 };
