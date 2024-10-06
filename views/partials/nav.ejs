@@ -22,6 +22,7 @@
         <li><a href="/cart" class="<%= currentUrl === '/cart' ? 'active' : '' %>"><i class="bi bi-bag-plus-fill"></i></a>
           <span id="cartBadge" class="badge bg-danger"><%= session.cartCount ?? 0 %></span>
         </li>
+        <li><a href="/cart/check-out" class="<%= currentUrl === '/cart/check-out' ? 'active' : '' %>">Purchases</a></li>
         <li><a href="/logout" class="<%= currentUrl === '/logout' ? 'active' : '' %>">Log out</a></li>
         <% } %>
 

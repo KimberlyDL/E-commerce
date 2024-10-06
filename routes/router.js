@@ -12,6 +12,7 @@ let registerUserController = require("../controller/registerUser");
 let productController = require("../controller/admin/product");
 let userController = require("../controller/admin/user");
 let salesController = require("../controller/admin/sales");
+let dashboardController = require("../controller/admin/dashboard");
 let cartController = require("../controller/cart");
 let catalogController = require("../controller/catalog");
 
@@ -64,13 +65,17 @@ router.post("/admin/products/delete/:id", isValidAdmin, productController.delete
 
 //users
 router.get("/admin/users", isValidAdmin, userController.index);
-router.get("/admin/reports", isValidAdmin, salesController.index);
+router.get("/admin/reports", isValidAdmin, dashboardController.index);
 
 //user
 router.get("/shop", isValidUser, catalogController.index)
 router.post("/addtocart", isValidUser, cartController.addtocart);
 
 router.get("/cart", isValidUser, cartController.index);
-
+router.post("/cart/update-quantity", isValidUser, cartController.updateCartQuantity);
+router.post("/cart/check-out", isValidUser, cartController.completeOrder);
+//router.get("/cart/check-out", isValidUser, cartController.viewOrderDetails);
+router.get("/cart/check-out", isValidUser, cartController.viewOrders);
+router.get('/cart/checkout/:id', cartController.getCheckoutDetails);
 
 module.exports = router;
