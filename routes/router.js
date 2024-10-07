@@ -66,6 +66,8 @@ router.get("/admin/products/edit/:id", isValidAdmin, productController.edit);
 router.post("/admin/products/edit/:id", isValidAdmin, uploadProductImage.single("image"), productController.patch);
 router.post("/admin/products/delete/:id", isValidAdmin, productController.delete);
 
+
+
 //users
 router.get("/admin/users", isValidAdmin, userController.index);
 router.get("/admin/users/create", isValidAdmin, userController.create);

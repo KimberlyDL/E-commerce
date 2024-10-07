@@ -16,6 +16,21 @@ const cartController = {
                     }
                 ]
             });
+    
+            // Fetch total orders and recent orders
+            const totalOrders = await Checkout.count({ where: { userId: userId } });
+            const recentOrders = await Checkout.findAll({
+                where: { userId: userId },
+                order: [['createdAt', 'DESC']],
+                limit: 5,  // Fetch the latest 5 orders
+                include: [
+                    {
+                        model: CheckoutItem,
+                        include: Product
+                    }
+                ]
+            });
+    
             const user = await User.findOne({
                 where: { id: userId }
             });
@@ -26,13 +41,22 @@ const cartController = {
                 session: req.session || {},
                 cartItems, // Pass the cart items to the view
                 user,
+                totalOrders,
+                recentOrders: recentOrders.map(order => ({
+                    id: order.id,
+                    customerName: user.name, // Assuming you want to show the user's name
+                    productName: order.CheckoutItems.map(item => item.Product.name).join(', '), // Join product names
+                    amount: order.totalAmount, // You might need to adjust this based on your Checkout structure
+                    status: order.paymentStatus // Or however you want to represent the order's status
+                })),
             });
-
+    
         } catch (error) {
             console.error('Error fetching cart:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     },
+    
 
     completeOrder: async (req, res) => {
         try {
