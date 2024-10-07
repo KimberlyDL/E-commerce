@@ -17,6 +17,7 @@ const productController = {
       res.status(500).json({ error: 'Internal server error' });
     }
   },
+  
 
   post: async (req, res) => {
     try {
@@ -74,27 +75,25 @@ const productController = {
 
   index: async (req, res) => {
     try {
-      const products = await Product.findAll({
-        include: {
-          model: ProductCategory,
-          as: 'categories', // Alias used in association
-          through: { attributes: [] }, // Hides the join table attributes
-        }
-      });
+        const products = await Product.findAll({
+            include: {
+                model: ProductCategory,
+                as: 'categories', // Alias used in association
+                through: { attributes: [] }, // Hides the join table attributes
+            }
+        });
 
-      //res.status(201).json(products);
-      res.render('products', {
-        title: 'Supreme Agribet Feeds Supply Store',
-        currentUrl: req.url,
-        session: req.session || {},
-        products
-      });
-
+        res.render('products', {
+            title: 'Supreme Agribet Feeds Supply Store',
+            currentUrl: req.url,
+            session: req.session || {},
+            products
+        });
     } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Internal server error' });
+        console.error('Error fetching products:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-  },
+},
 
   edit: async (req, res) => {
     try {

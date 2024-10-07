@@ -1,0 +1,64 @@
+<!-- Sidebar -->
+<nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+    <div class="position-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#dashboard">
+                    <i class="bi bi-speedometer2 me-2"></i>
+                    Dashboard
+                </a>
+            </li>
+            <a class="nav-link" href="/admin/products/" class="<%= currentUrl === '/admin/products/' ? 'active' : '' %>">
+                <i class="bi bi-box me-2"></i>
+                Products
+            </a>            
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/products/create" class="<%= currentUrl === '/admin/products/create' ? 'active' : '' %>">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Create Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="collapse" href="#users-collapse" role="button" aria-expanded="false" aria-controls="users-collapse">
+                    <i class="bi bi-people me-2"></i>
+                    Users
+                    <i class="bi bi-chevron-down ms-1"></i>
+                </a>
+                <div class="collapse" id="users-collapse">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#add-user">
+                                <i class="bi bi-person-plus me-2"></i>
+                                Add User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#delete-user">
+                                <i class="bi bi-person-x me-2"></i>
+                                Delete User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#view-users">
+                                <i class="bi bi-person-lines-fill me-2"></i>
+                                View Users
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/reports" class="<%= currentUrl === '/admin/reports' ? 'active' : '' %>">
+                    <i class="bi bi-file-earmark-text me-2"></i>
+                    Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout" class="<%= currentUrl === '/logout' ? 'active' : '' %>">
+                    <i class="bi bi-box-arrow-right me-2"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
