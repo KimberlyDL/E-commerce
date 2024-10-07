@@ -9,7 +9,6 @@
   </div>
 </div>
 
-  <!-- Check if there are products to display -->
   <div class="container">
     <div class="col-lg-12">
       <% if (product) { %>
@@ -32,7 +31,6 @@
                       <% } %>
                     </p>
   
-                    <!-- Edit and Delete Buttons -->
                     <a href="/admin/products/edit/<%= product.id %>" class="btn btn-warning">Edit</a>
                     <a href="/admin/products/delete/<%= product.id %>" class="btn btn-danger">Delete</a>
                   </div>
