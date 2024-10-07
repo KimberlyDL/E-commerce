@@ -1,5 +1,5 @@
-<%- include('partials/start') %>
-<%- include('partials/nav') %>
+<%- include('../../partials/start') %>
+<%- include('../../partials/nav') %>
 
 <main>
   <!-- Artist Section -->
@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row gy-4">
         <% products.forEach(function(product) { %>
-        <%- include('partials/adminproductpreview', { product: product }) %>
+        <%- include('../../partials/adminproductpreview', { product: product }) %>
         <% }); %>
       </div>
     </div>
@@ -46,4 +46,4 @@
 </script>
 
 
-<%- include('partials/end') %>
+<%- include('../../partials/end') %>

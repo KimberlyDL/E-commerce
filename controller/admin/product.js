@@ -6,7 +6,7 @@ const productController = {
   create: async (req, res) => {
     try {
       const categories = await ProductCategory.findAll();
-      res.render('createProducts', {
+      res.render('admin/product/createProducts', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
         session: req.session || {},
@@ -64,7 +64,6 @@ const productController = {
         });
       }
 
-      //res.status(201).json({ success: true, product });
       res.redirect('/admin/products/');
     } catch (error) {
       console.error('Error creating product:', error);
@@ -82,8 +81,7 @@ const productController = {
         }
       });
 
-      //res.status(201).json(products);
-      res.render('products', {
+      res.render('admin/product/products', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
         session: req.session || {},
@@ -110,7 +108,7 @@ const productController = {
         return res.status(404).json({ error: 'Product not found' });
       }
   
-      res.render('editProduct', {
+      res.render('admin/product/editProduct', {
         title: 'Supreme Agribet Feeds Supply Store',
         currentUrl: req.url,
         session: req.session || {},
@@ -135,7 +133,7 @@ const productController = {
         return res.status(404).json({ error: 'Product not found' });
       }
 
-      res.render('viewProducts',
+      res.render('admin/product/viewProducts',
         {
           title: 'Supreme Agribet Feeds Supply Store',
           currentUrl: req.url,

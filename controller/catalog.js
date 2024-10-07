@@ -32,8 +32,6 @@ const catalogController = {
             res.render('cart', {
                 title: 'Supreme Agrivet Feeds Supply Store',
                 currentUrl: req.url,
-                // session: req.session || {},
-                // cartCount,
             });
 
         } catch (error) {

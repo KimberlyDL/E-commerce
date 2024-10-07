@@ -7,7 +7,6 @@ const cartController = {
         try {
             const userId = req.session.userId;
 
-            // Fetch all cart items for the user, including product details
             const cartItems = await Cart.findAll({
                 where: { userId: userId },
                 include: [
@@ -20,8 +19,6 @@ const cartController = {
             const user = await User.findOne({
                 where: { id: userId }
             });
-
-            //res.json(cartItems).send();
 
             res.render('cart', {
                 title: 'Your Shopping Cart',

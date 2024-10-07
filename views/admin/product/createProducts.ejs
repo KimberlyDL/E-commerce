@@ -1,52 +1,51 @@
-<%- include('partials/start') %>
-<%- include('partials/nav') %>
+<%- include('../../partials/start') %>
+<%- include('../../partials/nav') %>
 
 <section id="team" class="team section">
-  <div class="container section-title">
-    <h2>Upload</h2>
-    <p>Add Products to your shop</p>
+  <div class="container mt-5">
+    <div class="container section-title">
+      <h2>Upload</h2>
+      <p>Add Products to your shop</p>
+    </div>
   </div>
-
   <div class="container">
     <form action="/admin/products/post" method="POST" enctype="multipart/form-data">
 
       <!-- Product Name Field -->
-      <div class="row row justify-content-center gy-4 mt-3">
+      <div class="row row justify-content-center gy-4 mt-1">
         <div class="col-md-6 text-start">
           <label for="name" class="form-label">Product Name:</label>
-          <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name" required><br><br>
+          <input type="text" name="name" id="name" class="form-control" placeholder="Enter product name" required>
         </div>
       </div>
 
       <!-- Product Price Field -->
-      <div class="row row justify-content-center gy-4">
+      <div class="row row justify-content-center gy-4 mt-1">
         <div class="col-md-6 text-start">
           <label for="price" class="form-label">Price (₱):</label>
-          <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" min="1" required><br><br>
+          <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" min="1" required>
         </div>
       </div>
 
       <!-- Product Description Field -->
-      <div class="row row justify-content-center gy-4">
+      <div class="row row justify-content-center gy-4 mt-1">
         <div class="col-md-6 text-start">
           <label for="description" class="form-label">Description:</label>
-          <textarea name="description" id="description" class="form-control" placeholder="Enter product description" rows="4" required></textarea><br><br>
+          <textarea name="description" id="description" class="form-control" placeholder="Enter product description" rows="4" required></textarea>
         </div>
       </div>
 
       <!-- Upload Picture Field -->
-      <div class="row row justify-content-center gy-4">
+      <div class="row row justify-content-center gy-4 mt-1">
         <div class="col-md-6 text-start">
           <label for="picture" class="form-label">Upload Picture:</label>
           <div class="input-group input-group-lg mb-3">
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif" class="form-control" required><br><br>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg, image/gif" class="form-control" required>
           </div>
         </div>
       </div>
-      <br>
-      <br>
       <!-- Available Categories Checkboxes -->
-      <div class="row row justify-content-center gy-4">
+      <div class="row row justify-content-center gy-4 mt-1">
         <div class="col-md-6 text-start">
           <label for="categories" class="form-label">Select Categories:</label><br>
           <% if (categories && categories.length> 0) { %>
@@ -65,7 +64,7 @@
       </div>
 
       <!-- Custom Category Textbox -->
-      <div class="row row justify-content-center gy-4 mb-3">
+      <div class="row row justify-content-center gy-4 mt-1 mb-3">
         <div class="col-md-6 text-start">
           <label for="customCategories" class="form-label">Add Custom Category (Separate by comma):</label>
           <input type="text" name="customCategories" id="customCategories" class="form-control" placeholder="Enter custom category">
@@ -73,13 +72,13 @@
       </div>
 
       <!-- Submit Button -->
-      <div class="row row justify-content-center gy-4 mt-3">
+      <div class="row row justify-content-center gy-4 mt-1 mt-3">
         <div class="col-md-6 text-center">
           <button type="submit">Add</button>
         </div>
       </div>
       <!-- Cancel Button -->
-      <div class="row row justify-content-center gy-4 mt-3">
+      <div class="row row justify-content-center gy-4 mt-1 mt-3">
         <div class="col-md-6 text-center">
           <button type="submit">Cancel</button>
         </div>
@@ -90,4 +89,4 @@
 </section>
 
 
-<%- include('partials/end') %>
+<%- include('../../partials/end') %>
